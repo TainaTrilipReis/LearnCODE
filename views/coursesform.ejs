@@ -1,0 +1,59 @@
+<% contentFor('body') %>
+<script type="text/javascript" src="coursesform.js"></script>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 mt-2">
+            <a href="/home"><img class='d-block mx-auto' src="LOGO.png" alt="Logo" style="width:80%"></a>
+        </div>
+        <div class="col-5 mt-2">
+        </div>
+        <div class="col-1 mt-2"></div>
+        <div class="col-4">
+            
+        </div>
+    </div>
+</div>
+<form id='form'action="/createcourse" method="post" class="was-validated margem1 formCourse" required>
+    <div class='container-fluid row'>
+        <div class="col-6 text-light">
+
+            <div class="form-group mx-4 px-4 mt-5">
+                <label class='text-light'for="email">Nome:</label>
+                <input id="name" name='name' class="form-control" type="text" placeholder='nome' required>
+                <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                <div class="invalid-feedback">Digite seu nome.</div>
+            </div>
+
+            <div class="form-group mx-4 px-4">
+                <label class='text-light'for="email">Gereno:</label>
+                <input id="genre" name='genre' class="form-control" type="text" placeholder='usuário' required>
+                <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                <div class="invalid-feedback">Digite seu nome.</div>
+            </div>
+            <div class="form-group mx-4 px-4">
+                <label class='text-light'for="senha">Experiencia:</label>
+                <input id="experience" name='experience' class="form-control" type="number" placeholder='1' required>
+                <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                <div class="invalid-feedback">Digite sua senha.</div>
+            </div>
+        </div>
+    
+        <div class="col-6 text-light">
+            <div class="form-group mx-4 px-4 mt-5">
+                <label class='text-light'for="email">Descrição:</label>
+                <textarea id="desc" name='desc' class="form-control" type="text" placeholder='...' rows='3' required></textarea>
+                <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                <div class="invalid-feedback">Adicione uma descrição.</div>
+            </div>
+            <div class="form-group mx-4 px-4">
+                <label class='text-light' for="email" >Quantidade de questões:</label>
+                <input id="qt" name='qt' onblur="addinputFields()" class="form-control" type="number" min='10' max='50' placeholder='10' required>
+                <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                <div class="invalid-feedback">Digite um email válido.</div>
+            </div>
+    </div>
+    <div id="container" class="row formQuestions">
+    </div>
+    
+    <button type="submit" class="px-2 pt-1 pb-2 botaoLogin text-light">Fazer Cadastro</button>
+</form>

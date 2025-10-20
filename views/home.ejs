@@ -1,0 +1,75 @@
+
+<% contentFor('body') %>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 mt-2">
+            <a href="/home"><img class='d-block mx-auto' src="LOGO.png" alt="Logo" style="width:80%"></a>
+        </div>
+        <div class="col-5 mt-2">
+            <div class="headerButtons py-3">
+                <a class='mx-3 text-light' href="/home">Cursos</a>
+                <a class='mx-3 text-light' href="/user">Área do Usuário</a>
+                <a class='mx-3 text-light' href="/ranking">Ranking</a>
+            </div>
+        </div>
+        <div class="col-1 mt-2"></div>
+        <div class="col-4">
+            <div class="d-flex headerUser pt-3 px-4 pb-3">
+                <img class='imgUser' src="<%= user[0]['img'] %>" alt="User Image">
+                <div class="p-1 text-light userName"><%= user[0]['name'] %><p class="userTitle"><%= user[0]['title_1'] %></p></div>
+                <div class="levelBar pb-1 px-3 d-flex justify-content-between">
+                    <div class=" pl-4 userLevel">Level <%= user[0]['level'] %></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='main'>
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-8 mt-2 container-fluid" style='width:100%'>
+                <% genres.forEach(function(genres) { a=0 %>
+                    <div class="text-light mt-4 cards">
+                        <h3 class='mx-3 row'><%= genres['genre'] %> </h3>
+                        <div class='d-flex justify-content-left row'>
+                        <% courses.forEach(function(course) { %>
+                            <% if(genres['genre']==course['genre']){ %> 
+                            <div class='inBetween col p-3 margem1 '>
+                                <label class="cardHome text-center container-fluid card-title headerButtons px-1 pb-2"><%- course['name'] %></label>
+                                <div class='d-flex justify-content-between'>
+                                    <a href="/viewcourse/<%= course['id'] %>"+ class="text-light">Visualizar</a>
+                                    <p class="card-text"><%= course['experience'] %> pts</p>
+                                </div>
+                            </div>
+                            <% }a++ %>
+                        <% }) %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+            <div class="col-4 mt-4">
+                <label class="text-light labelRanking">Top 10 do ranking</label>
+                <div class="ranking margem2 pt-3 px-4 pb-3">
+                    <table class="text-light container-fluid">
+                        <tbody class="container-fluid">
+                        <tr>
+                            <td class="column2">Posição</td>
+                            <td class="column2">Usuário</td>
+                            <td class="column2">Pontuação</td>
+                        </tr>
+                        <% for(x=0;x<10;x++) { %>
+                            <tr>
+                                <th class="column2"><%= x+1 %>.</th>
+                                <th class="column2"><% if(typeof rank[x]!='undefined'){ %> <%= rank[x]['user'] %> <% } %></th>
+                                <th class="column2"><% if(typeof rank[x]!='undefined'){ %> <%= rank[x]['experience'] %>pt<% } %></th>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

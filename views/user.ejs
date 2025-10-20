@@ -1,0 +1,112 @@
+
+<% contentFor('body') %>
+<script type="text/javascript" src="user.js"></script>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 mt-2">
+            <a href="/home"><img class='d-block mx-auto' src="LOGO.png" alt="Logo" style="width:80%"></a>
+        </div>
+        <div class="col-5 mt-2">
+            <div class="headerButtons py-3">
+                <a class='mx-3 text-light' href="/home">Cursos</a>
+                <a class='mx-3 text-light' href="/user">Área do Usuário</a>
+                <a class='mx-3 text-light' href="/ranking">Ranking</a>
+            </div>
+        </div>
+        <div class="col-1 mt-2"></div>
+        <div class="col-4">
+            <div class="d-flex headerUser pt-3 px-4 pb-3">
+                <img class='imgUser' src="<%= user[0]['img'] %>" alt="User Image">
+                <div class="p-1 text-light userName"><%= user[0]['name'] %><p class="userTitle"><%= user[0]['title_1'] %></p></div>
+                <div class="levelBar pb-1 px-3 d-flex justify-content-between">
+                    <div class=" pl-4 userLevel">Level <%= user[0]['level'] %></div>
+                    <div> <%= user[0]['experience'] %></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='main container-fluid'>
+    <div class="row userData">
+        <div class="col-3 userCard ">
+            <img class='d-block imgUserForm' src="<%= user[0]['img'] %>" alt="User Image">
+            
+            <div class="p-1 text-light userCardName userName">Usuário <%= user[0]['user'] %><% if(typeof teacher[0]!== 'undefined' && teacher[0]['validated']!=0){ %><p class="userCardProf">Professor</p><% } %></div>
+            <form id='form' class='d-flex justify-content-center' action="/changeimg" enctype="multipart/form-data" method="post">
+                <label id='fileLabel' class='labelFile' for="img">Escolher imagem</label>
+                <input type="file" class="inputFile" id="img" onchange="changeFileInput('fileLabel')" name="img" required>
+                <button type="submit" class='buttonImg'>Salvar</button>
+            </form>
+            <div class="d-flex justify-content-center">
+                <a href='/logout'class="text-light buttonImg btn pt-2 ">Sair </a>
+            </div>
+        </div>
+        <div class="col-6 userCardData">
+            <form id='form' class='form' action="/updateaccount" method="post">
+                <div class='row pt-2'>
+                    <div class="col-6 ">
+                        <div class="form-group py-2 px-4">  
+                            <label class='text-light'for="name">Nome:</label>
+                            <input id="name" name="name" class="form-control" type="text" placeholder='nome' value='<%= user[0]['name'] %>'>
+                            <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                            <div class="invalid-feedback">Digite o nome.</div>
+                        </div>
+                        <div class="form-group py-2 px-4">
+                            <label class='text-light'for="price">Senha:</label>
+                            <input id="password" name="password" class="form-control" type="password" placeholder='********'  value='' >
+                            <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                            <div class="invalid-feedback">Digite o preço.</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group py-2 px-4">
+                            <label class='text-light'for="description">Email:</label>
+                            <input id="email" name="email" class="form-control" type="text" placeholder="email" value="<%= user[0]['email'] %>">
+                            <div class="valid-feedback"><img src="valido.png" width="15px"></div>
+                            <div class="invalid-feedback">Digite o texto.</div>
+                            <button type="submit" class="btn text-light btnAccountEdit form-control">Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="margem1 m-4 teacherArea px-4">
+                <% if(typeof teacher[0]!== 'undefined'){ %>
+                    <% if(teacher[0]['validated']==0){ %>
+                        <div class="text-light teacherForm center" style="margin-top:10%">
+                            <label class="labelTeacherForm container-fluid">O seu cadastro ainda não foi validado. Espere o nosso time verificar seus dados. </label>
+                        </div>
+                    <% }else {%>
+                        <div class="row">
+                            <div calss="col-3">
+                                <label class='text-light d-block'>Cursos feitos: <%= teacher[0]['qt_courses'] %> </label>
+                                <a href='/courseform'class="text-light btnCreateCourse btn">Criar novo curso </a>
+                            </div>
+                            <div class="col-9">
+                                <div class='row scrollable'>
+                                <% courses.forEach(function(course) { %>
+                                    <div class='inBetweenUser col margem1 text-light'>
+                                        <label class="cardHome text-center container-fluid card-title headerButtons px-1 pb-2"><%- course['name'] %></label>
+                                        <div class='d-flex justify-content-between'>
+                                            <a href="/show/"+ class="text-light">Visualizar</a>
+                                            <p class="card-text"><%= course['experience'] %> pts</p>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                                </div>
+                            </div>
+                        </div>
+
+                    <% } %>
+                <% } %>
+                <% if(typeof teacher[0]== 'undefined'){ %>
+                        <div class="text-light teacherForm center">
+                            <label class="labelTeacherForm container-fluid">Você ainda não é um professor. Deseja fazer o cadastro? </label>
+                            <a href='/teacherform' class="text-light btnTeacherForm btn">Ir para a página de cadastro</a>
+                        </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

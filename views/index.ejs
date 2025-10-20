@@ -1,0 +1,46 @@
+<% contentFor('body') %>
+<div class='container-fluid row'>
+    <div class="col-4 text-light">
+        <div class="login margem1" >
+            <a href="/"><img class='d-block mx-auto' src="LOGO.png" alt="Logo" style="width:80%; margin-top:2vw"></a>
+            <form action="/requestlogin" method="post" class="was-validated" required>
+
+                <div class="form-group mx-3 px-4">
+                <% if(typeof error!== 'undefined'){%>
+                    <% if(error==1){ %>
+                        <div class='error bg-danger'>ERRO preencha os campos</div>
+                    <% }else if(error==2){%>
+                        <div class='error bg-danger'>ERRO Este usuário não existe</div>
+                    <% } %> 
+                <% } %>
+                </div>
+                <div class="form-group mx-3 pt-4 px-4">
+                    <label class='text-light'for="email">Usuário:</label>
+                    <input id="user" name='user' class="formulario form-control margem1" type="text" placeholder='email@exemplo.com' required>
+                    <div class="valid-feedback ml-1"><img src="valido.png" width="15px"></div>
+                    <div class="invalid-feedback ml-1">Digite seu email.</div>
+                </div>
+                <div class="form-group mx-3 px-4">
+                    <label class='text-light'for="email">Senha:</label>
+                    <input id="password" name='password' class="formulario form-control margem1" type="password" placeholder='*******' required>
+                    <div class="valid-feedback ml-1"><img src="valido.png" width="15px"></div>
+                    <div class="invalid-feedback ml-1">Digite seu email.</div>
+                </div>
+                
+            <p class='textIndex2'>Não tem uma conta? Crie uma <a href="accountform">aqui</a></p>
+                <div class="form-group mx-3 px-4">
+                    <button type="submit" class="botaoLogin text-light">Fazer Login</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+    <div class="col-8 text-light">
+        <div class="textIndex1">
+            <p class="welcome">Bem vindo à<br>LearnCODE!</p>
+            <p class="welcome2">Aqui você pode aprender muitas formas de<br> programar, completamente de graça!</p>
+        </div>
+        <img class='d-block IMGindexPG' src="IMGindexPG.png" alt="Logo" style="width:50%">
+    </div>
+</div> 
+
+    

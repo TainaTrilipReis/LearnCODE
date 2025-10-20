@@ -1,0 +1,72 @@
+<% contentFor('body') %>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 mt-2">
+            <a href="/home"><img class='d-block mx-auto' src="/LOGO.png" alt="Logo" style="width:80%"></a>
+        </div>
+        <div class="col-5 mt-2">
+            <div class="headerButtons py-3">
+                <a class='mx-3 text-light' href="/home">Cursos</a>
+                <a class='mx-3 text-light' href="/user">Área do Usuário</a>
+                <a class='mx-3 text-light' href="/ranking">Ranking</a>
+            </div>
+        </div>
+        <div class="col-1 mt-2"></div>
+        <div class="col-4">
+            <div class="d-flex headerUser pt-3 px-4 pb-3">
+                <img class='imgUser' src="/<%= user[0]['img'] %>" alt="User Image">
+                <div class="p-1 text-light userName"><%= user[0]['name'] %><p class="userTitle"><%= user[0]['title_1'] %></p></div>
+                <div class="levelBar pb-1 px-3 d-flex justify-content-between">
+                    <div class=" pl-4 userLevel">Level <%= user[0]['level'] %></div>
+                    <div> <%= user[0]['experience'] %></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='main'>
+    <div class="margem1 rank ">
+        <label class="tabelLabel">Ranking de usuários</label>
+        <table class="rankTable">
+            <tbody>
+                <tr>
+                    <th class="column">Posição</th>
+                    <th class="column">Nome</th>
+                    <th class="column">Usuário</th>
+                    <th class="column">Experiencia</th>
+                    <th class="column">Level</th>
+                    <th class="column">Quantidade de cursos feitos</th>
+                </tr>
+                <% x=0 %>
+                <% ranking.forEach(function(rank) { x = x+1%>
+                    <tr class="<% if(x%2==0){%> bgc1<% }else{ %> bgc2<% } %>">
+                        <td class="column"><%= x %>º</td>
+                        <td class="column"><%= rank['name'] %></td>
+                        <td class="column"><%= rank['user'] %></td>
+                        <td class="column"><%= rank['experience'] %></td>
+                        <td class="column"><%= rank['level'] %></td>
+                        <td class="column">
+                            <% qt.forEach(function(quant) {%>
+                                <% if(quant['user']==rank['user']){%>
+                                <%= quant['count(user)'] %>
+                                <% } %>
+                            <% }) %>
+                        </td>
+                    </tr>
+                <% }) %>
+                <% for(let x=0;x<18;x++) { %>
+                    <tr class="<% if(x%2==0){%> bgc2<% }else{ %> bgc1<% } %>">
+                        <td class="column"></td>
+                        <td class="column"></td>
+                        <td class="column"></td>
+                        <td class="column"></td>
+                        <td class="column"></td>
+                        <td class="column"></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+

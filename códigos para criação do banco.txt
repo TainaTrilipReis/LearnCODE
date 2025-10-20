@@ -1,0 +1,111 @@
+create database node;
+
+create table tb_level(
+    id integer auto_increment primary key,
+    name varchar(50),
+    experience integer
+);
+
+create table tb_users (
+    user varchar(50) primary key,
+    name varchar(100),
+    email varchar(100) unique,
+    password varchar(255),
+    experience integer,
+    level integer,
+    title_1 varchar(50),
+    img varchar(255),
+    foreign key (level) references tb_level(id)
+);
+
+create table tb_teacher (
+    user varchar(50) primary key,
+    qt_courses integer,
+    validated boolean,
+    cpf char(11),
+    formation varchar(50),
+    certification varchar(255),
+  	foreign key (user) references tb_users(user)
+);
+
+create table tb_admin(
+    user varchar(50) primary key,
+  	foreign key (user) references tb_users(user)
+);
+
+create table tb_teacher_validation(
+    user varchar(50) primary key,
+    admin varchar(50),
+    date date,
+    validated boolean,
+  	foreign key (user) references tb_teacher(user),
+  	foreign key (admin) references tb_admin(user)
+);
+
+create table tb_courses(
+    id integer auto_increment primary key,
+    name varchar(100) unique,
+    teacher varchar(50),
+    description varchar(500),
+    experience integer,
+    genre varchar(30),
+    qt_questions integer,
+    qt_finished integer default 0,
+  	foreign key (teacher) references tb_teacher(user)
+);
+
+create table tb_questions(
+    id integer auto_increment primary key,
+    course integer,
+    number smallint,
+    context varchar(600),
+    question varchar(255),
+    answer1 varchar(50),
+    answer2 varchar(50),
+    answer3 varchar(50),
+    answer4 varchar(50),
+    correct smallint(4),
+  	foreign key (course) references tb_courses(id)
+);
+
+create table tb_courses_completed(
+    id integer auto_increment primary key,
+    course integer,
+    user varchar(50),
+    score integer,
+    dt_started datetime,
+    dt_ended datetime,
+    progress integer,
+    ended boolean,
+  	foreign key (course) references tb_courses(id),
+  	foreign key (user) references tb_users(user)
+);
+
+create table tb_rank(
+    id integer auto_increment primary key,
+    user varchar(50) unique,
+    experience integer,
+    foreign key (user) references tb_users(user)
+);
+
+insert into tb_level (name, experience) values('Inciante',0);
+insert into tb_level (name, experience) values('Novato', 1000);
+insert into tb_level (name, experience) values('Estudante', 2500);
+insert into tb_level (name, experience) values('Programador', 5000);
+
+insert into tb_users(user,name,email,password,experience,level,title_1,img) values ('admin','Gabriel','email@gmail.com','$2b$10$bMGc8NqJvqvbLwzpPk3j7eCegPvR01za7bevHuAgpVbTpVp9m4T2G',0,1,'Iniciante','Placeholder_user.png');
+insert into tb_teacher(user, qt_courses, validated, cpf, formation ) values ('admin',1,1,'12345678911','Professor de JavaScript');
+insert into tb_rank(user, experience) values ('admin',0);
+
+insert into tb_courses(id, name, teacher, description, experience, genre, qt_questions, qt_finished) values (20,'JavaScript no HTML','admin','Um curso que ensina a utilizar o javascript para criar interfaces responsivas',2000, 'JavaScript', 10, 0);
+
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,1,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Correta','Errada',3);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,2,'Contexto da questão','Qual resposta está correta?','Correta','Errada','Errada','Errada',1);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,3,'Contexto da questão','Qual resposta está correta?','Errada','Correta','Errada','Errada',2);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,4,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Correta','Errada',3);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,5,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Correta','Errada',3);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,6,'Contexto da questão','Qual resposta está correta?','Correta','Errada','Errada','Errada',1);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,7,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Correta','Errada',3);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,8,'Contexto da questão','Qual resposta está correta?','Errada','Correta','Errada','Errada',2);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,9,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Correta','Errada',3);
+insert into tb_questions(course, number, context, question, answer1, answer2, answer3, answer4, correct) values(20,10,'Contexto da questão','Qual resposta está correta?','Errada','Errada','Errada','Correta',4);

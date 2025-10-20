@@ -1,0 +1,61 @@
+<% contentFor('body') %>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 mt-2">
+            <a href="/home"><img class='d-block mx-auto' src="/LOGO.png" alt="Logo" style="width:80%"></a>
+        </div>
+        <div class="col-5 mt-2">
+            <div class="headerButtons py-3">
+                <a class='mx-3 text-light' href="/home">Cursos</a>
+                <a class='mx-3 text-light' href="/user">Área do Usuário</a>
+                <a class='mx-3 text-light' href="/ranking">Ranking</a>
+            </div>
+        </div>
+        <div class="col-1 mt-2"></div>
+        <div class="col-4">
+            <div class="d-flex headerUser pt-3 px-4 pb-3">
+                <img class='imgUser' src="/<%= user[0]['img'] %>" alt="User Image">
+                <div class="p-1 text-light userName"><%= user[0]['name'] %><p class="userTitle"><%= user[0]['title_1'] %></p></div>
+                <div class="levelBar pb-1 px-3 d-flex justify-content-between">
+                    <div class=" pl-4 userLevel">Level <%= user[0]['level'] %></div>
+                    <div> <%= user[0]['experience'] %></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='main'>
+    <div class="container-fluid text-light">
+        <div class='infoQuestion d-flex justify-content-between px-4'>
+            <label class="courseExp" style="position:absolute"><%= course[0]['experience'] %> Pontos</label>
+            <label class="courseName"><%= course[0]['name'] %></label>
+            <label class="courseProgress">Progresso: <%= question[0]['number'] %>/10</label>
+        </div>
+        <div class="container-fluid">
+            <table class="progressBar">
+                <tr>
+                <% for(x=0;x<course[0]['qt_questions'];x++){ %>
+                    <th style="background-color: <% if((x)<question[0]['number']){ %>rgb(69, 226, 69) <% }else{ %> rgb(163, 161, 161) <% } %> <% if(x==0){ %> ; border-top-left-radius:15px ; border-bottom-left-radius:15px <% }else if(x==9){ %>; border-top-right-radius:15px ; border-bottom-right-radius:15px<% } %>" ></th>
+                <% } %>
+                </tr>   
+            </table>
+        </div>
+        <div class="margem1 question">
+            <label class="questionNumber">Questão nº<%= question[0]['number'] %></label>
+            <div class="questionContext">
+                <%= question[0]['context'] %>
+            </div>
+            <label class="questionLabel"><%= question[0]['question'] %></label>
+            <form class='container-fluid row questionButtonsArea' id='form' class='form' action="/checkanswer" method="post">
+                <input type="hidden" name='id' value="<%= question[0]['course'] %>">
+                <input type="hidden" name='number' value="<%= question[0]['number'] %>">
+                <button type="submit" name='submit' class="col-3 p-2 questionButtons" value='1'><%= question[0]['answer1'] %></button>
+                <button type="submit" name='submit' class="col-3 p-2 questionButtons" value='2'><%= question[0]['answer2'] %></button>
+                <button type="submit" name='submit' class="col-3 p-2 questionButtons" value='3'><%= question[0]['answer3'] %></button>
+                <button type="submit" name='submit' class="col-3 p-2 questionButtons" value='4'><%= question[0]['answer4'] %></button>
+            </form>
+        </div>
+    </div>
+</div>
+
